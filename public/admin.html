@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Admin Panel - Smart Campus Shop</title>
+</head>
+<body>
+
+<div class="container">
+    <h2>Admin Panel</h2>
+    
+    <div id="loginBox">
+        <form onsubmit="event.preventDefault(); login();">
+            <input type="text" id="u" placeholder="Username" autocomplete="off" readonly onfocus="this.removeAttribute('readonly'); this.value=''">
+            <input type="password" id="p" placeholder="Password" autocomplete="off" readonly onfocus="this.removeAttribute('readonly'); this.value=''">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div id="panel" style="display:none;">
+        <div class="shop-status">
+            <h3>Shop Status</h3>
+            <button id="statusBtn" onclick="toggleShopStatus()">Loading...</button>
+        </div>
+
+        <hr>
+
+        <h3>Add New Item</h3>
+        <div class="add-form">
+            <input id="name" placeholder="Item Name">
+            <input id="price" placeholder="Price (₹)">
+            <input id="qty" placeholder="Quantity">
+            <button onclick="addItem()">Add Item</button>
+        </div>
+
+        <hr>
+
+        <h3>Manage Items</h3>
+        <div id="list"></div>
+    </div>
+</div>
+
+<script>
+    // Force clear fields when page loads
+    window.onload = function() {
+        document.getElementById('u').value = '';
+        document.getElementById('p').value = '';
+        document.getElementById('u').removeAttribute('readonly');
+        document.getElementById('p').removeAttribute('readonly');
+    }
+    
+    // Also clear when page is shown (for back/forward navigation)
+    window.addEventListener('pageshow', function() {
+        document.getElementById('u').value = '';
+        document.getElementById('p').value = '';
+    });
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>
