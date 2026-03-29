@@ -1,8 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     margin: 0;
     padding: 20px;
+    min-height: 100vh;
 }
 
 .container {
@@ -14,9 +15,14 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-h1, h2 {
-    text-align: center;
+h1, h2, h3 {
     color: #333;
+    margin-bottom: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #667eea;
 }
 
 .nav-links {
@@ -54,15 +60,22 @@ input, button {
     font-size: 14px;
 }
 
+input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
 button {
     background: #667eea;
     color: white;
     cursor: pointer;
+    transition: all 0.2s;
     border: none;
 }
 
 button:hover {
     background: #5a67d8;
+    transform: translateY(-1px);
 }
 
 #items {
@@ -74,18 +87,29 @@ button:hover {
 }
 
 .card {
-    background: white;
-    border: 1px solid #e2e8f0;
     border-radius: 12px;
     padding: 20px;
     width: 250px;
     text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
 .card h3 {
-    color: #667eea;
+    color: #333;
     margin: 0 0 10px 0;
+    font-weight: bold;
+}
+
+.card p {
+    margin: 8px 0;
+    color: #555;
+    font-weight: 500;
 }
 
 .status-box {
@@ -94,6 +118,28 @@ button:hover {
     margin: 20px 0;
     border-radius: 8px;
     font-weight: bold;
+}
+
+.status-open {
+    background: #c6f6d5;
+    color: #22543d;
+    border: 1px solid #9ae6b4;
+}
+
+.status-closed {
+    background: #fed7d7;
+    color: #742a2a;
+    border: 1px solid #fc8181;
+}
+
+.shop-status {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.shop-status button {
+    font-size: 16px;
+    padding: 10px 20px;
 }
 
 .add-form {
@@ -113,10 +159,21 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
-.cart-btn {
-    background: #48bb78;
+.admin-item span {
+    font-weight: bold;
+    color: #333;
+}
+
+.admin-item input {
+    width: 80px;
+}
+
+.admin-item button {
+    padding: 5px 10px;
+    font-size: 12px;
 }
 
 .closed-msg {
@@ -131,4 +188,24 @@ hr {
     margin: 30px 0;
     border: none;
     border-top: 2px solid #e2e8f0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .card {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .add-form {
+        flex-direction: column;
+    }
+    
+    .admin-item {
+        flex-direction: column;
+        text-align: center;
+    }
 }

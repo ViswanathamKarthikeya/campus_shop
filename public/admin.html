@@ -12,8 +12,8 @@
     
     <div id="loginBox">
         <form onsubmit="event.preventDefault(); login();">
-            <input type="text" id="u" placeholder="Username" autocomplete="off" readonly onfocus="this.removeAttribute('readonly'); this.value=''">
-            <input type="password" id="p" placeholder="Password" autocomplete="off" readonly onfocus="this.removeAttribute('readonly'); this.value=''">
+            <input type="text" id="u" placeholder="Username" autocomplete="off">
+            <input type="password" id="p" placeholder="Password" autocomplete="new-password">
             <button type="submit">Login</button>
         </form>
     </div>
@@ -42,19 +42,12 @@
 </div>
 
 <script>
-    // Force clear fields when page loads
     window.onload = function() {
-        document.getElementById('u').value = '';
-        document.getElementById('p').value = '';
-        document.getElementById('u').removeAttribute('readonly');
-        document.getElementById('p').removeAttribute('readonly');
+        if(document.getElementById('u')) {
+            document.getElementById('u').value = '';
+            document.getElementById('p').value = '';
+        }
     }
-    
-    // Also clear when page is shown (for back/forward navigation)
-    window.addEventListener('pageshow', function() {
-        document.getElementById('u').value = '';
-        document.getElementById('p').value = '';
-    });
 </script>
 
 <script src="script.js"></script>

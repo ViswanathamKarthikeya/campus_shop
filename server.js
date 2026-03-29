@@ -53,6 +53,7 @@ app.post('/add-item', (req, res) => {
         [name, price, quantity],
         (err) => {
             if (err) {
+                console.log(err);
                 res.status(500).send('Error');
             } else {
                 res.send('Item added');
@@ -78,19 +79,6 @@ app.put('/update-item/:id', (req, res) => {
                 res.status(500).send('Error');
             } else {
                 res.send('Updated');
-            }
-        });
-});
-
-app.post('/order', (req, res) => {
-    const { total, items } = req.body;
-    db.query('INSERT INTO orders (total, items) VALUES (?, ?)',
-        [total, JSON.stringify(items)],
-        (err) => {
-            if (err) {
-                res.status(500).send('Error');
-            } else {
-                res.send('Order placed');
             }
         });
 });

@@ -1,5 +1,4 @@
 let itemsData = [];
-let cart = [];
 
 function checkShopStatus() {
     fetch('/shop-status')
@@ -8,10 +7,10 @@ function checkShopStatus() {
             if (document.getElementById('shopStatus')) {
                 const statusDiv = document.getElementById('shopStatus');
                 if (data.isOpen) {
-                    statusDiv.innerHTML = '🟢 Shop is OPEN - Start Shopping!';
+                    statusDiv.innerHTML = '🟢 Shop is OPEN';
                     statusDiv.className = 'status-box status-open';
                 } else {
-                    statusDiv.innerHTML = '🔴 Shop is CLOSED - Come back later!';
+                    statusDiv.innerHTML = '🔴 Shop is CLOSED';
                     statusDiv.className = 'status-box status-closed';
                 }
             }
@@ -42,13 +41,12 @@ function loadItemsForCustomer() {
 
 function displayItems(data) {
     let out = '';
-    data.forEach(i => {
+    data.forEach((i, index) => {
         out += `
-        <div class="card">
+        <div class="card" style="background: ${getColor(index)}">
             <h3>${i.name}</h3>
             <p>💰 Price: ₹${i.price}</p>
-            <p>📦 ${i.quantity > 0 ? "In Stock (" + i.quantity + " left)" : "Out of Stock"}</p>
-            ${i.quantity > 0 ? `<button onclick='addToCart(${JSON.stringify(i)})'>Add to Cart 🛒</button>` : '<button disabled style="background:#ccc">Out of Stock</button>'}
+            <p>📦 Stock: ${i.quantity}</p>
         </div>`;
     });
     
@@ -56,36 +54,31 @@ function displayItems(data) {
         document.getElementById("items").innerHTML = out || '<p>No items available</p>';
 }
 
-function addToCart(item) {
-    cart.push(item);
-    alert("✅ " + item.name + " added to cart!");
+function getColor(index) {
+    const colors = [
+        'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+        'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
+        'linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)',
+        'linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)',
+        'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)',
+        'linear-gradient(135deg, #ffe6b3 0%, #ffb3ba 100%)',
+        'linear-gradient(135deg, #b3ffd9 0%, #b3e0ff 100%)',
+        'linear-gradient(135deg, #e0b3ff 0%, #ffb3f0 100%)'
+    ];
+    return colors[index % colors.length];
 }
 
-function viewCart() {
-    if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
+// Search function
+if (document.getElementById("search")) {
+    window.searchItems = function() {
+        let val = document.getElementById("search").value.toLowerCase();
+        displayItems(itemsData.filter(i => i.name.toLowerCase().includes(val)));
+    };
     
-    let total = 0;
-    let itemsList = "";
-    cart.forEach((item, index) => {
-        total += parseFloat(item.price);
-        itemsList += (index + 1) + ". " + item.name + " - ₹" + item.price + "\n";
-    });
-    
-    if (confirm("Your Cart:\n\n" + itemsList + "\nTotal: ₹" + total + "\n\nPlace order?")) {
-        fetch('/order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ total, items: cart })
-        }).then(() => {
-            alert("Order placed! Total: ₹" + total);
-            cart = [];
-        });
-    }
+    document.getElementById("search").onkeyup = window.searchItems;
 }
 
+// ADMIN FUNCTIONS
 function login() {
     const username = document.getElementById('u').value;
     const password = document.getElementById('p').value;
@@ -209,6 +202,7 @@ function deleteItem(id) {
     }
 }
 
+// Initialize based on page
 if (document.getElementById('items')) {
     checkShopStatus();
 }
