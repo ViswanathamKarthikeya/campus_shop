@@ -101,7 +101,7 @@ function login() {
             loadItemsForAdmin();
             loadShopStatus();
         } else {
-            alert("Invalid credentials! Use admin/1234");
+            alert("Invalid credentials! Enter correct username and password");
             document.getElementById('u').value = '';
             document.getElementById('p').value = '';
         }
