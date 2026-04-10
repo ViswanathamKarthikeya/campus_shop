@@ -1,6 +1,6 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #110557 100%);
     margin: 0;
     padding: 20px;
     min-height: 100vh;
@@ -32,7 +32,7 @@ h1 {
 
 .btn {
     display: inline-block;
-    background: #667eea;
+    background: #0e1f6b;
     color: white;
     padding: 12px 24px;
     margin: 0 10px;

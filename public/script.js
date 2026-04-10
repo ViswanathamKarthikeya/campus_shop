@@ -1,6 +1,6 @@
 let itemsData = [];
 
-function checkShopStatus() {
+function checkShopStatus(){
     fetch('/shop-status')
         .then(r => r.json())
         .then(data => {
